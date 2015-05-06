@@ -1,0 +1,16 @@
+# Add dependencies required to develop and test your package.
+# will be added into `setup.py` as the `tests_require` keyword.
+#
+# Unless otherwise noted, we expect that the dependencies
+# follow semantic versioning, and will loosely pin them to
+# minimize breakage to our dev environment.
+-r requirements.txt
+-r test-requirements.txt
+detox>=0.9.3
+flake8>=2.2,<3.0
+nosy>=1.1.2,<2.0.0
+pyyaml>=3.11,<4.0
+pylint>=1.3.1,<2.0.0
+Sphinx>=1.2,<2.0
+sphinx-rtd-theme>=0.1,<1.0
+tox>=1.6.0,<2.0.0
