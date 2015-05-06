@@ -15,11 +15,6 @@ def read_requirements_file(filename):
 
 requirements = read_requirements_file('requirements.txt')
 test_requirements = read_requirements_file('test-requirements.txt')
-if sys.version_info < (3, ):
-    requirements.append('six>=1.7,<2.0')
-    test_requirements.append('mock>=1.0.1,<2.0')
-if sys.version_info < (2, 7):
-    test_requirements.append('unittest2==0.5.1')
 
 setup(
     name='sprockets.clients.cassandra',
@@ -41,7 +36,6 @@ setup(
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.2',
