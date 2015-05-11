@@ -1,8 +1,7 @@
 import codecs
 import sys
 
-from setuptools
-
+import setuptools
 
 def read_requirements_file(req_name):
     requirements = []
@@ -25,7 +24,7 @@ tests_require = read_requirements_file('test-requirements.txt')
 
 setuptools.setup(
     name='sprockets.clients.cassandra',
-    version=sprockets.clients.cassandra.__version__,
+    version='0.0.0',
     description='Base functionality for accessing/modifying data in Cassandra',
     long_description=codecs.open('README.rst', encoding='utf-8').read(),
     url='https://github.com/sprockets/sprockets.clients.cassandra.git',

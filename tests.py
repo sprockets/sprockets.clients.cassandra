@@ -19,13 +19,13 @@ class TestCassandraConnectionClass(AsyncTestCase):
         super(TestCassandraConnectionClass, self).setUp()
         self.cluster = Cluster(self.find_cassandra())
         self.session = self.cluster.connect()
-        self.keyspace = 'sprocketstest{}'.format(int(time.time()*10000))
+        self.keyspace = 'sprocketstest{0}'.format(int(time.time()*10000))
         self.create_fixtures()
         self.connection = CassandraConnection(ioloop=self.io_loop)
 
     def tearDown(self):
         super(TestCassandraConnectionClass, self).tearDown()
-        self.session.execute("DROP KEYSPACE {}".format(self.keyspace))
+        self.session.execute("DROP KEYSPACE {0}".format(self.keyspace))
         self.connection.shutdown()
 
     def find_cassandra(self):
@@ -36,10 +36,10 @@ class TestCassandraConnectionClass(AsyncTestCase):
 
     def create_fixtures(self):
         self.session.execute(
-            "CREATE KEYSPACE IF NOT EXISTS {} WITH REPLICATION = "
+            "CREATE KEYSPACE IF NOT EXISTS {0} WITH REPLICATION = "
             "{{'class': 'SimpleStrategy', "
             "'replication_factor': 1}}".format(self.keyspace))
-        self.session.execute("USE {}".format(self.keyspace))
+        self.session.execute("USE {0}".format(self.keyspace))
         self.session.execute(
             "CREATE TABLE IF NOT EXISTS names (name text PRIMARY KEY)")
         self.session.execute(
@@ -51,7 +51,7 @@ class TestCassandraConnectionClass(AsyncTestCase):
         count = 100
         for i in range(count):
             futures.append(self.connection.execute(
-                "SELECT name FROM {}.names".format(self.keyspace)))
+                "SELECT name FROM {0}.names".format(self.keyspace)))
         results = 0
         for future in futures:
             yield future
