@@ -21,7 +21,7 @@ class TestCassandraConnectionClass(AsyncTestCase):
         self.session = self.cluster.connect()
         self.keyspace = 'sprocketstest{0}'.format(int(time.time()*10000))
         self.create_fixtures()
-        self.connection = CassandraConnection(ioloop=self.io_loop)
+        self.connection = CassandraConnection()
 
     def tearDown(self):
         super(TestCassandraConnectionClass, self).tearDown()

@@ -10,9 +10,7 @@ import socket
 
 from cassandra.cluster import Cluster
 from tornado.concurrent import Future
-
-version_info = (0, 0, 0)
-__version__ = '.'.join(str(v) for v in version_info)
+from tornado.ioloop import IOLoop
 
 try:
     from urllib.parse import urlsplit
@@ -30,12 +28,12 @@ class CassandraConnection(object):
 
     The Sprockets Cassandra client handles provides the glue
     needed to join the Tornado async I/O module with the native
-    python async I/O used in the Cassandra driver. When
-    instantiating the client, a reference to the Tornado I/O loop
-    needs to be passed via the constructor so that Tornado future
+    python async I/O used in the Cassandra driver. The
+    constructor of the function will grab the current handle
+    to the underlying Tornado I/O loop so that a Tornado future
     result can be returned to the host application.
 
-    Configuration parameters the module are obtained from an
+    Configuration parameters for the module are obtained from
     environment variables. Currently, the only variable is
     ``CASSANDRA_URI``, which takes the format "cassandra://hostname".
     If not located, the hostname defaults to localhost.
@@ -48,11 +46,11 @@ class CassandraConnection(object):
 
     """
 
-    def __init__(self, ioloop):
+    def __init__(self, ioloop=None):
         self._config = self._get_cassandra_config()
         self._cluster = Cluster(self._config['contact_points'])
         self._session = self._cluster.connect()
-        self._ioloop = ioloop
+        self._ioloop = IOLoop.current()
 
     def _get_cassandra_config(self):
         """Retrieve a dict containing Cassandra client config params."""
