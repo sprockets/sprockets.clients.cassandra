@@ -25,7 +25,7 @@ tests_require = read_requirements_file('test-requirements.txt')
 
 setuptools.setup(
     name='sprockets.clients.cassandra',
-    version='0.0.0',
+    version='0.0.1',
     description='Base functionality for accessing/modifying data in Cassandra',
     long_description=codecs.open('README.rst', encoding='utf-8').read(),
     url='https://github.com/sprockets/sprockets.clients.cassandra.git',
