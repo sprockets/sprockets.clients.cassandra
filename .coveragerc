@@ -1,2 +1,8 @@
 [run]
-source=sprockets.clients.cassandra
+branch = True
+source=sprockets/clients/cassandra
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+ignore_errors = True

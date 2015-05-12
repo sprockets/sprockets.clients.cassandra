@@ -1,48 +1,50 @@
 sprockets.clients.cassandra
 ===========================
+Provides base functionality for asynchronously accessing/modifying
+data in a Cassandra cluster from within Tornado.
 
-.. image:: https://coveralls.io/repos/aweber/sprockets.clients.cassandra/badge.png
-   :target: https://coveralls.io/r/aweber/sprockets.clients.cassandra
+Althought the underlying library supports several connection options,
+this module currently only allows the hostname to be specified, and 
+that via an environment variable called CASSANDRA_URI as specified
+in the docs.
 
-.. image:: https://pypip.in/download/sprockets.clients.cassandra/badge.svg
-   :target: https://pypi.python.org/pypi/sprockets.clients.cassandra/
+|Version| |Downloads| |Status| |Coverage| |License|
 
-.. image:: https://pypip.in/license/sprockets.clients.cassandra/badge.svg
-   :target: https://pypi.python.org/pypi/sprockets.clients.cassandra/
+Documentation
+-------------
+https://sprocketsclientcassandra.readthedocs.org
 
-.. image:: https://readthedocs.org/projects/sprockets.clients.cassandra/badge/?version=latest
-   :target: http://sprockets.clients.cassandra.readthedocs.org/en/latest/
+Contributing
+------------
+This project follows the standard fork and pull request model of development.
+If you want to contribute changes, then fork the project and code
+away. To set up the environment:
 
------
+    virtualenv env
+    source env/bin/activate
+    pip install -qr dev-requirements.txt
 
-.. important::
+To test across supported platforms:
+    tox
 
-   Please send email to api@aweber.com and them them to update this README!
+To build the docs (in *build/sphinx/html*):
+    ./setup.py build_sphinx
 
-Quickstart Development Guide
-----------------------------
+Version History
+---------------
+See https://github.com/sprockets/sprockets.clients.cassandra/blob/master/HISTORY.rst
 
-1. Create a new virtual environment using `pyvenv`_ or `virtualenv`_ and
-   **activate it**
-2. Install development requirements - `pip install -r dev-requirements`
-3. `./setup.py nosetests` will run the test suite with coverage enabled
-4. `detox`_ is installed and will run the test suite across all supported
-   python platforms
-5. `./setup.py build_sphinx` will generate documentation into
-   *build/sphinx/html*
+.. |Version| image:: https://badge.fury.io/py/sprockets.clients.cassandra.svg?
+   :target: https://badge.fury.io/py/sprockets.clients.cassandra
 
-TL;DR
-+++++
+.. |Status| image:: https://travis-ci.org/sprockets/sprockets.clients.cassandra.svg?branch=master
+   :target: https://travis-ci.org/sprockets/sprockets.clients.cassandra
 
-::
+.. |Coverage| image:: https://codecov.io/github/sprockets/sprockets.clients.cassandra/coverage.svg?branch=master
+   :target: https://codecov.io/github/sprockets/sprockets.clients.cassandra?branch=master
 
-    $ pyvenv env
-    $ ./env/bin/pip install -qr dev-requirements.txt
-    $ source env/bin/activate
-    (env) $ ./setup.py nosetests
-    (env) $ ./setup.py build_sphinx
-    (env) $ detox
+.. |Downloads| image:: https://pypip.in/d/sprockets.clients.cassandra/badge.svg
+   :target: https://pypi.python.org/pypi/sprockets.clients.cassandra
 
-.. _detox: https://testrun.org/tox/
-.. _pyvenv: https://docs.python.org/3/library/venv.html
-.. _virtualenv: https://virtualenv.pypa.io/
+.. |License| iamge:: https://pypi.in/license/sprockets.clients.cassandra/badge.svg?
+   :target: https://sprocketsclientscassandra.readthedocs.org
