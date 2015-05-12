@@ -9,4 +9,3 @@
 # minimize breakage to our dev environment.
 coveralls>=0.4,<1.0
 nose>=1.3.1,<2.0.0
-tornado>=3.0.0,<4.0.0
