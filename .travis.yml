@@ -4,11 +4,20 @@ python:
 - 3.3
 - 3.4
 before_install:
-  - pip install codecov
+- pip install codecov
 install:
-  - pip install -r requirements.txt -r test-requirements.txt
+- pip install -r requirements.txt -r test-requirements.txt
 script: nosetests
 after_success:
-  - codecov
+- codecov
 services:
-  - cassandra
+- cassandra
+deploy:
+  provider: pypi
+  user: sprockets
+  password:
+    secure: ZijtPLg8Ao8dK3XCUGobV2zbmfl2IhxWAejFnQf08T5j4y5gsFL+FBZiLmajXibAH+mxkZSV2cG6Pgo0H+mJIoj8cfypEt0wgJKKqHD4cTY60LNTmI5D4V0r0cd0nNWnHVq1jm0L/5LLASXCTiYrjXdo3W+A9ONGYklcBUYM45p+ZFoJLkmyUnQzSiwKkiEMwmXBOHxfvep2Dzjjc0fpbAAioyZHjCcqLQ9d2zPN0uJQ9ACfgrgUAjMKnYzPc/iwn7sytdpl+5FbpZ8YEXwyE3BfAzHeFApKwCmi7g/HLn6cNTDAitMqgppwN8l8FbXpO2NIwesYDRBrPAszehh8ptMfj9h5Fiwbc9iGXWSBUYSDzQIG+A9cwupQEFe6onnAzkcKQ2tIlJ0jdLOTQYZtQpeAFYUSoNpRvThQfcC8n8ALZGwm+LTdphNO8DgVq1zIJIWMbBHRxmXmNMH4tAjAzbyH+tYpHZyPg/IB6X3eBTfcJdjQFG7tzbd2nBz8iCIR+4Z2R/gcq8Uuud5UrxQtsGTMb0doHBibeTXOVvp9Uf0cmOXEpbw7M/5zShrTCW6oJuXBtX+tUOxs0PI/mRrhOow82lojmO+pEIVpHv0m4Zdeqnfa/Wn+jCP4ge+6rMsJRVVWZwqfNAUUnVmQYsUX9TtLB0zi9L2+tqSzUjKFwbU=
+  on:
+    tags: true
+    python: 2.7
+    all_branches: true
