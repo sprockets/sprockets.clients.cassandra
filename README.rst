@@ -20,15 +20,15 @@ This project follows the standard fork and pull request model of development.
 If you want to contribute changes, then fork the project and code
 away. To set up the environment:
 
-    virtualenv env
-    source env/bin/activate
-    pip install -qr dev-requirements.txt
+* virtualenv env
+* source env/bin/activate
+* pip install -qr dev-requirements.txt
 
 To test across supported platforms:
-    tox
+* tox
 
 To build the docs (in *build/sphinx/html*):
-    ./setup.py build_sphinx
+* ./setup.py build_sphinx
 
 Version History
 ---------------
