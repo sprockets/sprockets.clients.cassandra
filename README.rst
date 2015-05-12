@@ -8,7 +8,7 @@ this module currently only allows the hostname to be specified, and
 that via an environment variable called CASSANDRA_URI as specified
 in the docs.
 
-|Version| |Downloads| |Status| |Coverage| |License|
+|Version| |Downloads| |Status| |Coverage|
 
 Documentation
 -------------
@@ -45,6 +45,3 @@ See https://github.com/sprockets/sprockets.clients.cassandra/blob/master/HISTORY
 
 .. |Downloads| image:: https://pypip.in/d/sprockets.clients.cassandra/badge.svg
    :target: https://pypi.python.org/pypi/sprockets.clients.cassandra
-
-.. |License| iamge:: https://pypi.in/license/sprockets.clients.cassandra/badge.svg?
-   :target: https://sprocketsclientscassandra.readthedocs.org
