@@ -20,7 +20,8 @@ except:
 version_info = (0, 0, 1)
 __version__ = '.'.join(str(v) for v in version_info)
 
-DEFAULT_URI = 'cassandra://localhost'
+DEFAULT_URI = 'cassandra://localhost:9042'
+DEFAULT_PORT = 9042
 
 
 class CassandraConnection(object):
@@ -48,13 +49,13 @@ class CassandraConnection(object):
 
     def __init__(self, ioloop=None):
         self._config = self._get_cassandra_config()
-        self._cluster = Cluster(self._config['contact_points'])
+        self._cluster = Cluster(contact_points=self._config['contact_points'],
+                                port=self._config['port'])
         self._session = self._cluster.connect()
         self._ioloop = IOLoop.current()
 
     def _get_cassandra_config(self):
         """Retrieve a dict containing Cassandra client config params."""
-        config = {}
         parts = urlsplit(os.environ.get('CASSANDRA_URI', DEFAULT_URI))
         if parts.scheme != 'cassandra':
             raise RuntimeError(
@@ -64,8 +65,10 @@ class CassandraConnection(object):
         if not ip_addresses:
             raise RuntimeError('Unable to find Cassandra in DNS!')
 
-        config['contact_points'] = ip_addresses
-        return config
+        return {
+            'contact_points': ip_addresses,
+            'port': parts.port or DEFAULT_PORT,
+        }
 
     def set_keyspace(self, keyspace):
         """Set the keyspace used by the connection."""
