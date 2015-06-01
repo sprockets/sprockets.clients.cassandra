@@ -17,7 +17,7 @@ try:
 except:
     from urlparse import urlsplit
 
-version_info = (0, 0, 1)
+version_info = (0, 1, 0)
 __version__ = '.'.join(str(v) for v in version_info)
 
 DEFAULT_URI = 'cassandra://localhost:9042'
