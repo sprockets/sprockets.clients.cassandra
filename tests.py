@@ -74,5 +74,5 @@ class TestCassandraConnectionClass(AsyncTestCase):
         stmt = self.connection.prepare('SELECT * FROM names;', 'get_names')
         copy = self.connection.prepare('SELECT * FROM names;', 'get_names')
         self.assertIs(stmt, copy, 'Should return the cached statement')
-        results = yield self.connection.execute('get_names')
+        results = yield self.connection.execute(stmt)
         self.assertEqual(results[0].name, 'Peabody')

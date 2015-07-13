@@ -112,9 +112,8 @@ class CassandraConnection(object):
         keyword arguments. See cassandra-python documentation for
         definition of those parameters.
         """
-        stmt = CassandraConnection._prepared_statement_cache.get(query, query)
         tornado_future = Future()
-        cassandra_future = self._session.execute_async(stmt, *args, **kwargs)
+        cassandra_future = self._session.execute_async(query, *args, **kwargs)
         self._ioloop.add_callback(
             self._callback, cassandra_future, tornado_future)
         return tornado_future
