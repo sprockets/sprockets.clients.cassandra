@@ -47,6 +47,8 @@ class CassandraConnection(object):
 
     """
 
+    _prepared_statement_cache = {}
+
     def __init__(self, ioloop=None):
         self._config = self._get_cassandra_config()
         self._cluster = Cluster(contact_points=self._config['contact_points'],
@@ -80,6 +82,29 @@ class CassandraConnection(object):
         self._session = None
         self._cluster = None
 
+    def prepare(self, query, name=None):
+        """Create and cache a prepared statement using the provided query.
+
+        This function will take a ``query`` and optional ``name`` parameter
+        and will create a new prepared statement for the provided ``query``.
+        The resulting statement object will be cached so future invocations
+        of this function will not incur the overhead or recreating the
+        statement.  If ``name`` is provided it will be used as the key for
+        the cache, so you'll be able to call ``execute`` using the name.
+
+        :pram str query: The query to prepare.
+        :pram str name: (Optional) name to use as a key in the cache.
+
+        """
+        key = name or query
+        stmt = CassandraConnection._prepared_statement_cache.get(key, None)
+        if stmt is not None:
+            return stmt
+
+        stmt = self._session.prepare(query)
+        CassandraConnection._prepared_statement_cache[key] = stmt
+        return stmt
+
     def execute(self, query, *args, **kwargs):
         """Asynchronously execute the specified CQL query.
 
@@ -87,10 +112,9 @@ class CassandraConnection(object):
         keyword arguments. See cassandra-python documentation for
         definition of those parameters.
         """
-
+        stmt = CassandraConnection._prepared_statement_cache.get(query, query)
         tornado_future = Future()
-        cassandra_future = self._session.execute_async(
-            query, *args, **kwargs)
+        cassandra_future = self._session.execute_async(stmt, *args, **kwargs)
         self._ioloop.add_callback(
             self._callback, cassandra_future, tornado_future)
         return tornado_future

@@ -31,6 +31,7 @@ class TestCassandraConnectionClass(AsyncTestCase):
     def find_cassandra(self):
         uri = os.environ.get('CASSANDRA_URI', 'cassandra://localhost')
         hostname = uri[12:]
+        return [hostname.split(':')[0]]
         _, _, ips = socket.gethostbyname_ex(hostname)
         return ips
 
@@ -66,3 +67,12 @@ class TestCassandraConnectionClass(AsyncTestCase):
     @gen_test
     def test_set_keyspace(self):
         self.connection.set_keyspace(self.keyspace)
+
+    @gen_test
+    def test_prepared_statement(self):
+        yield self.connection.execute('use %s' % self.keyspace)
+        stmt = self.connection.prepare('SELECT * FROM names;', 'get_names')
+        copy = self.connection.prepare('SELECT * FROM names;', 'get_names')
+        self.assertIs(stmt, copy, 'Should return the cached statement')
+        results = yield self.connection.execute('get_names')
+        self.assertEqual(results[0].name, 'Peabody')
