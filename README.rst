@@ -8,6 +8,8 @@ this module currently only allows the hostname to be specified, and
 that via an environment variable called CASSANDRA_URI as specified
 in the docs.
 
+**DEPRECATED and UNMAINTAINED**
+
 |Version| |Downloads| |Status| |Coverage|
 
 Documentation
